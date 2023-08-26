@@ -47,4 +47,13 @@ resource "aws_identitystore_user" "username" {
       value   = emails.value.value
     }
   }
+
+  dynamic "phone_numbers" {
+    for_each = each.value.phone_numbers != null ? toset([each.value.phone_numbers]) : toset([])
+    content {
+      primary = phone_numbers.value.primary
+      type    = phone_numbers.value.type
+      value   = phone_numbers.value.value
+    }
+  }
 }
